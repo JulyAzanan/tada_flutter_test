@@ -25,4 +25,8 @@ class Api extends GetConnect {
       decoder: Post.listDecoder,
     );
   }
+
+  Future<Response<bool>> deletePost(int id) async {
+    return await delete("$apiBaseUrl/posts/$id", decoder: (_) => true);
+  }
 }
