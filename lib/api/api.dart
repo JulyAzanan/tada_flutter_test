@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:tada_flutter_test/models/comments.dart';
+import 'package:tada_flutter_test/models/posts.dart';
 import 'package:tada_flutter_test/models/users.dart';
 import 'package:tada_flutter_test/utils/constants.dart';
 
@@ -15,6 +16,13 @@ class Api extends GetConnect {
     return await get(
       "$apiBaseUrl/comments",
       decoder: Comment.listDecoder,
+    );
+  }
+
+  Future<Response<List<Post>>> getPosts() async {
+    return await get(
+      "$apiBaseUrl/posts",
+      decoder: Post.listDecoder,
     );
   }
 }
