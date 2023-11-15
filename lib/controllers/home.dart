@@ -10,6 +10,9 @@ class HomeController extends GetxController {
   final Rx<Options<List<User>>> users = Rx(
       Options()); // Fetching all of them to be able to sort on their name too !
 
+  final TextEditingController textController = TextEditingController(text: "");
+  final searchText = "".obs;
+
   @override
   void onInit() {
     _getPosts();
@@ -37,8 +40,10 @@ class HomeController extends GetxController {
           isDismissible: true,
           snackPosition: SnackPosition.TOP,
           icon: const Icon(Icons.check),
-        ); 
-        posts.value.getValue().removeWhere((post) => post.id == id); // posts is SOME if this is called
+        );
+        posts.value.getValue().removeWhere(
+            (post) => post.id == id); // posts is SOME if this is called
+        posts.refresh();
       },
       (e) async {
         print(e);
@@ -49,8 +54,23 @@ class HomeController extends GetxController {
           isDismissible: true,
           snackPosition: SnackPosition.TOP,
           icon: const Icon(Icons.error),
-        ); 
+        );
       },
     );
+  }
+
+  List<Post> filterPost(
+    List<Post> unfilteredPosts,
+    List<User> unfilteredUsers,
+    String searchText,
+  ) {
+    final filteredUsers = unfilteredUsers.where(
+        (user) => user.name.toLowerCase().contains(searchText.toLowerCase()));
+
+    return unfilteredPosts
+        .where((post) =>
+            post.title.toLowerCase().contains(searchText.toLowerCase()) ||
+            filteredUsers.any((user) => user.id == post.userId))
+        .toList();
   }
 }

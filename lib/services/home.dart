@@ -6,7 +6,9 @@ import 'package:tada_flutter_test/utils/handler.dart';
 import 'package:tada_flutter_test/utils/options.dart';
 
 class HomeService {
-  static Future<bool> getPosts(Rx<Options<List<Post>>> Function() posts) async {
+  static Future<bool> getPosts(
+    Rx<Options<List<Post>>> Function() posts,
+  ) async {
     Api api = Get.find();
     return await Handler.apiCallHandler(
       apiMethod: () async => await api.getPosts(),

@@ -22,7 +22,28 @@ class HomePage extends StatelessWidget {
           margin: getMargin(left: 12, right: 12),
           child: Column(
             children: [
-              const SizedBox.shrink(), // TODO: Search area
+              Container(
+                padding: getMargin(
+                  left: 8,
+                  right: 8,
+                ),
+                decoration: BoxDecoration(
+                    border: Border.all(),
+                    borderRadius: BorderRadius.circular(getSize(20))),
+                child: TextFormField(
+                  controller: controller.textController,
+                  onChanged: (text) {
+                    controller.searchText.value = text;
+                    controller.searchText.refresh();
+                  },
+                  decoration: InputDecoration(
+                    hintText: "search".tr, // TODO: i18n
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    icon: const Icon(Icons.search),
+                  ),
+                ),
+              ),
               Expanded(
                 child: Obx(
                   () => controller.posts.value.match(
@@ -41,18 +62,22 @@ class HomePage extends StatelessWidget {
                           child: Text("error_users".tr), // TODO : i18n
                         ),
                         onSome: (users) {
+                          final filteredPosts = controller.filterPost(
+                              posts, users, controller.searchText.value);
+
                           return ListView.builder(
                             itemBuilder: (_, index) {
                               return PostPreview(
-                                key: ValueKey(index),
+                                key: ValueKey(filteredPosts[index].id),
                                 onDismissed: controller.deletePost,
-                                post: posts[index],
+                                post: filteredPosts[index],
                                 user: users.firstWhere(
-                                  (user) => user.id == posts[index].userId,
+                                  (user) =>
+                                      user.id == filteredPosts[index].userId,
                                 ),
                               );
                             },
-                            itemCount: posts.length,
+                            itemCount: filteredPosts.length,
                             physics: const AlwaysScrollableScrollPhysics(),
                           );
                         },
