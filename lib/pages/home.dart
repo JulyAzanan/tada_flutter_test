@@ -15,6 +15,10 @@ class HomePage extends StatelessWidget {
         title: Text("all_posts".tr), // TODO : i18n
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async => await controller.addPost(),
+        child: const Icon(Icons.add),
+      ),
       body: GestureDetector(
         onTap: FocusManager.instance.primaryFocus
             ?.unfocus, // Closing keyboard if opened when clicked outside

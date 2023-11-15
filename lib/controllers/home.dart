@@ -59,6 +59,31 @@ class HomeController extends GetxController {
     );
   }
 
+  Future<void> addPost() async {
+    await HomeService.addPost("new_title".tr, "new_body".tr, 1, (post) async {
+      Get.snackbar(
+        "add_success".tr, // TODO : i18n
+        "add_success_body".tr, // TODO : i18n
+        backgroundColor: Colors.greenAccent,
+        isDismissible: true,
+        snackPosition: SnackPosition.TOP,
+        icon: const Icon(Icons.check),
+      );
+      posts.value.getValue().add(post); // posts is SOME if this is called
+      posts.refresh();
+    }, (e) async {
+      print(e);
+      Get.snackbar(
+        "delete_error".tr, // TODO : i18n
+        "delete_error_body".tr, // TODO : i18n
+        backgroundColor: Colors.redAccent,
+        isDismissible: true,
+        snackPosition: SnackPosition.TOP,
+        icon: const Icon(Icons.error),
+      );
+    });
+  }
+
   List<Post> filterPost(
     List<Post> unfilteredPosts,
     List<User> unfilteredUsers,

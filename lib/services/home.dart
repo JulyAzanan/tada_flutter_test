@@ -33,4 +33,19 @@ class HomeService {
       onFailure: onFailure,
     );
   }
+
+  static Future<bool> addPost(
+    String title,
+    String body,
+    int userId,
+    Future<void> Function(Post) onSuccess,
+    Future<void> Function(Exception) onFailure,
+  ) async {
+    Api api = Get.find();
+    return await Handler.apiCallHandler(
+      apiMethod: () async => await api.addPost(title, body, userId),
+      onSuccess: onSuccess,
+      onFailure: onFailure,
+    );
+  }
 }
