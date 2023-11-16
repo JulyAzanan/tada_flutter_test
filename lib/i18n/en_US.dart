@@ -1,0 +1,17 @@
+const Map<String, String> enUS = { // Generated from ChatGPT
+  "all_posts": "All posts",
+  "search": "Search",
+  "error_posts": "Error retrieving posts.",
+  "error_users": "Error retrieving users.",
+  "post_detail": "Post detail",
+  "error_comments": "Error retrieving comments.",
+  "delete_success": "Deletion successful",
+  "delete_success_body": "Deletion successfully completed",
+  "delete_error": "Error during deletion",
+  "delete_error_body": "An error occurred during deletion",
+  "add_success": "Addition successful",
+  "add_success_body": "Addition successfully completed",
+  "add_error": "Error during addition",
+  "add_error_body": "An error occurred during addition",
+  "comment_section": "Comment section",
+};

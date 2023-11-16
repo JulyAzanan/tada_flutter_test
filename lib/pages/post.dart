@@ -5,13 +5,15 @@ import 'package:tada_flutter_test/controllers/post.dart';
 import 'package:tada_flutter_test/utils/pixels.dart';
 
 class PostPage extends StatelessWidget {
+  const PostPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     PostController controller = Get.find();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("post_detail".tr), // TODO : i18n
+        title: Text("post_detail".tr), 
         backgroundColor: Get.theme.colorScheme.inversePrimary,
       ),
       body: Container(
@@ -63,7 +65,6 @@ class PostPage extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   ),
                   onError: (e) {
-                    print(e);
                     return Text("error_comments".tr);
                   },
                   onSome: (comments) {
