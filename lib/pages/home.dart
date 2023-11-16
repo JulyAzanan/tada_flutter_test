@@ -6,6 +6,8 @@ import 'package:tada_flutter_test/routes/router.dart';
 import 'package:tada_flutter_test/utils/pixels.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     HomeController controller = Get.find();
@@ -13,8 +15,21 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("all_posts".tr), // TODO : i18n
+        title: Text("all_posts".tr),
         backgroundColor: Get.theme.colorScheme.inversePrimary,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.updateLocale(controller.locale.languageCode == "fr"
+                  ? const Locale("en", "US")
+                  : const Locale("fr", "FR"));
+              controller.locale = controller.locale.languageCode == "fr"
+                  ? const Locale("en", "US")
+                  : const Locale("fr", "FR");
+            },
+            icon: const Icon(Icons.flag),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async => await controller.addPost(),
@@ -42,7 +57,7 @@ class HomePage extends StatelessWidget {
                     controller.searchText.refresh();
                   },
                   decoration: InputDecoration(
-                    hintText: "search".tr, // TODO: i18n
+                    hintText: "search".tr,
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     icon: const Icon(Icons.search),
@@ -56,7 +71,7 @@ class HomePage extends StatelessWidget {
                     onLoading: () =>
                         const Center(child: CircularProgressIndicator()),
                     onError: (_) => Center(
-                      child: Text("error_posts".tr), // TODO : i18n
+                      child: Text("error_posts".tr),
                     ),
                     onSome: (posts) {
                       return controller.users.value.match(
@@ -64,7 +79,7 @@ class HomePage extends StatelessWidget {
                         onLoading: () =>
                             const Center(child: CircularProgressIndicator()),
                         onError: (_) => Center(
-                          child: Text("error_users".tr), // TODO : i18n
+                          child: Text("error_users".tr),
                         ),
                         onSome: (users) {
                           final filteredPosts = controller.filterPost(

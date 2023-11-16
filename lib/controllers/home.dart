@@ -13,6 +13,8 @@ class HomeController extends GetxController {
   final TextEditingController textController = TextEditingController(text: "");
   final searchText = "".obs;
 
+  Locale locale = Get.deviceLocale ?? const Locale("fr", "FR");
+
   @override
   void onInit() {
     _getPosts();
@@ -34,8 +36,8 @@ class HomeController extends GetxController {
       id,
       (_) async {
         Get.snackbar(
-          "delete_success".tr, // TODO : i18n
-          "delete_success_body".tr, // TODO : i18n
+          "delete_success".tr,
+          "delete_success_body".tr,
           backgroundColor: Colors.greenAccent,
           isDismissible: true,
           snackPosition: SnackPosition.TOP,
@@ -46,10 +48,9 @@ class HomeController extends GetxController {
         posts.refresh();
       },
       (e) async {
-        print(e);
         Get.snackbar(
-          "delete_error".tr, // TODO : i18n
-          "delete_error_body".tr, // TODO : i18n
+          "delete_error".tr,
+          "delete_error_body".tr,
           backgroundColor: Colors.redAccent,
           isDismissible: true,
           snackPosition: SnackPosition.TOP,
@@ -62,8 +63,8 @@ class HomeController extends GetxController {
   Future<void> addPost() async {
     await HomeService.addPost("new_title".tr, "new_body".tr, 1, (post) async {
       Get.snackbar(
-        "add_success".tr, // TODO : i18n
-        "add_success_body".tr, // TODO : i18n
+        "add_success".tr,
+        "add_success_body".tr,
         backgroundColor: Colors.greenAccent,
         isDismissible: true,
         snackPosition: SnackPosition.TOP,
@@ -72,10 +73,9 @@ class HomeController extends GetxController {
       posts.value.getValue().add(post); // posts is SOME if this is called
       posts.refresh();
     }, (e) async {
-      print(e);
       Get.snackbar(
-        "delete_error".tr, // TODO : i18n
-        "delete_error_body".tr, // TODO : i18n
+        "add_error".tr,
+        "add_error_body".tr,
         backgroundColor: Colors.redAccent,
         isDismissible: true,
         snackPosition: SnackPosition.TOP,
