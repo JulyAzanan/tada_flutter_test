@@ -52,6 +52,13 @@ class Options<T> {
     _type = OptionsStates.ERROR;
   }
 
+  T getValue() {
+    if (_type != OptionsStates.SOME) {
+      throw TypeError();
+    }
+    return _value!;
+  }
+
   G match<G>({
     required G Function() onNone,
     required G Function() onLoading,
