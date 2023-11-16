@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tada_flutter_test/components/post_preview.dart';
 import 'package:tada_flutter_test/controllers/home.dart';
+import 'package:tada_flutter_test/routes/router.dart';
 import 'package:tada_flutter_test/utils/pixels.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,7 +14,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text("all_posts".tr), // TODO : i18n
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Get.theme.colorScheme.inversePrimary,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async => await controller.addPost(),
@@ -75,6 +76,12 @@ class HomePage extends StatelessWidget {
                                 key: ValueKey(filteredPosts[index].id),
                                 onDismissed: controller.deletePost,
                                 post: filteredPosts[index],
+                                onTap: (post, user) {
+                                  Get.toNamed(
+                                    AppRoutes.post,
+                                    arguments: {"post": post, "user": user},
+                                  );
+                                },
                                 user: users.firstWhere(
                                   (user) =>
                                       user.id == filteredPosts[index].userId,

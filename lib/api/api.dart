@@ -48,4 +48,11 @@ class Api extends GetConnect {
       decoder: (json) => Post.decoder(json),
     );
   }
+
+  Future<Response<List<Comment>>> getAllCommentsOf(int id) async {
+    return await get(
+      "$apiBaseUrl/posts/$id/comments",
+      decoder: Comment.listDecoder,
+    );
+  }
 }
